@@ -1,6 +1,10 @@
 server:
   port: 4004
 
+auth:
+  service:
+    url: ${AUTH_SERVICE_URL:http://auth-service:4005}
+
 spring:
   cloud:
     gateway:
@@ -18,6 +22,7 @@ spring:
             - Path=/api/patients/**
           filters:
             - StripPrefix=1
+            - JwtValidation
 
         - id: api-docs-patient-route
           uri: http://patient-service:4000
